@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="container mt-3">
+        <h1 style="color: orange">Matheus de Oliveira Teodoro da Silva</h1>
+        <h2>Patrocinado pelo Aléx de Niteroi</h2>
+        <hr>
+        {% for post in posts %}
+
+        {% if post.file is none %}
+        <div class="row border mt-4 p-3 meupost">
+            <div class="col col-3">
+                <div class="image pe-2">
+                    <img src="{{ url_for('static', filename='fotos_perfil/{}'.format(post.autor.foto_perfil)) }}">
+                </div>
+                <strong>{{post.autor.username}}</strong>
+
+            </div>
+
+
+            <div class="col col-9">
+                <a style="text-decoration: none" href="{{ url_for('ver_post', post_id=post.id) }}"><h3>{{post.titulo}}
+                    <small class="text-muted" style="font-size: 15px">Data de Criação: {{ post.data_criacao.strftime('%d/%m/%Y') }}</small>
+
+                </h3></a>
+                <p>{{post.corpo}}</p>
+            </div>
+        </div>
+        {% else %}
+            <div class="row border mt-4 p-3 meupost">
+                <div class="col col-3">
+                    <div class="image pe-2">
+                        <img src="{{ url_for('static', filename='fotos_perfil/{}'.format(post.autor.foto_perfil)) }}">
+                    </div>
+                    <strong class="pe-2">{{ post.autor.username }}</strong>
+                </div>
+
+                <div class="col col-9">
+                    <a href="{{ url_for('ver_post', post_id=post.id) }}" style="text-decoration: none"><h3>{{post.titulo}}
+                        <small class="text-muted" style="font-size: 15px">Data de Criação: {{ post.data_criacao.strftime('%d/%m/%Y') }}</small>
+
+                    </h3></a>
+                    <p>{{post.corpo}}</p>
+                    {% if 'pdf' in post.file %}
+                        <embed src="{{ url_for('static', filename='files/{}'.format(post.file)) }}" width="600" height="500" type="application/pdf">
+                    {% elif 'jpg' in post.file or 'png' in post.file %}
+                        <img src="{{ url_for('static', filename='files/{}'.format(post.file)) }}" width="600" style="center">
+                    {% elif 'pptx' in post.file or 'pptm' in post.file or 'ppsx' in post.file %}
+                        <a href="{{ url_for('static', filename='files/{}'.format(post.file)) }}" download="">Baixar Power Point</a>
+                    {% elif 'xlsx' in post.file %}
+                     <a href="{{ url_for('static', filename='files/{}'.format(post.file)) }}" download="">Baixar Arquivo Excel</a>
+                    {% elif 'exe' in post.file %}
+                    <a href="{{ url_for('static', filename='files/{}'.format(post.file)) }}" download=>Baixar Execcutavel</a>
+                    {% else %}
+                        <video src="{{ url_for('static', filename='files/{}'.format(post.file)) }}" type="video/mp4" controls width="600" height="500"></video>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}
