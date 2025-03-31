@@ -41,7 +41,7 @@ def login():
 
     if form_login.validate_on_submit() and 'botao_submit_login' in request.form:
         user = Usuario.query.filter_by(email=form_login.email.data).first()
-        if user and bcrypt.check_password_hash(user.senha, form_login.senha.data):
+        if user and bcrypt.check_password_hash(user.senha.encode("utf-8"), form_login.senha.data):
             login_user(user, remember=form_login.lembrar_dados.data)
             flash(f'Login feito com sucesso no email: {form_login.email.data}', 'alert-success')
             par_next = request.args.get('next')
@@ -54,7 +54,7 @@ def login():
             flash(f'Falha no Login. Email ou Senha Incorretos', 'alert-danger')
 
     if form_criarconta.validate_on_submit() and 'botao_submit_criarconta' in request.form:
-        senha_crip = bcrypt.generate_password_hash(form_criarconta.senha.data)
+        senha_crip = bcrypt.generate_password_hash(form_criarconta.senha.data).decode("utf-8")
         user = Usuario(username=form_criarconta.username.data, email=form_criarconta.email.data, senha=senha_crip)
         with app.app_context():
             database.session.add(user)
