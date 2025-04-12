@@ -34,8 +34,8 @@ from pageone import routes
 with app.app_context():
     database.create_all()
     from pageone.models import Usuario
-    senha_crip = bcrypt.generate_password_hash('senha_do_admin').decode('utf-8')
+    senha_crip = bcrypt.generate_password_hash('201b94231cba640a1c21').decode('utf-8')
     if not Usuario.query.filter_by(username='admin123').first():
-        usuario1 = Usuario(username='admin123', email='admin@email.com', senha=senha_crip)
+        usuario1 = Usuario(username='admin123', email='c555f1aee2d56f910c4a0abf22f59ee2@noob.com', senha=senha_crip)
         database.session.add(usuario1)
         database.session.commit()
