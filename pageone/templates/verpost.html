@@ -7,7 +7,7 @@
         <div class="row border mt-4 p-3 meupost">
             <div class="col col-3">
                 <div class="image pe-2">
-                    <img src="{{ url_for('static', filename='fotos_perfil/{}'.format(post.autor.foto_perfil)) }}">
+                    <img src="{{ url_for('static', filename='fotos_perfil/{}'.format(post.autor.foto_perfil)) }}" class="img-fluid">
                 </div>
                 <strong>{{post.autor.username}}</strong>
 
@@ -32,7 +32,7 @@
             <div class="row border mt-4 p-3 meupost">
                 <div class="col col-3">
                     <div class="image pe-2">
-                        <img src="{{ url_for('static', filename='fotos_perfil/{}'.format(post.autor.foto_perfil)) }}">
+                        <img src="{{ url_for('static', filename='fotos_perfil/{}'.format(post.autor.foto_perfil)) }}" class="img-fluid">
                     </div>
                     <strong class="pe-2">{{ post.autor.username }}</strong>
                 </div>
@@ -51,17 +51,19 @@
 
                     <p>{{post.corpo}}</p>
                     {% if 'pdf' in post.file %}
-                        <embed src="{{ url_for('static', filename='files/{}'.format(post.file)) }}" width="600" height="500" type="application/pdf">
+                        <embed src="{{ url_for('static', filename='files/{}'.format(post.file)) }}" width="100%" height="500" type="application/pdf">
                     {% elif 'jpg' in post.file or 'png' in post.file %}
-                        <img src="{{ url_for('static', filename='files/{}'.format(post.file)) }}" width="600" style="center">
+                        <img src="{{ url_for('static', filename='files/{}'.format(post.file)) }}" style="center"  class="img-fluid">
                     {% elif 'pptx' in post.file or 'pptm' in post.file or 'ppsx' in post.file %}
                         <a href="{{ url_for('static', filename='files/{}'.format(post.file)) }}" download="">Baixar Power Point</a>
                     {% elif 'xlsx' in post.file %}
                      <a href="{{ url_for('static', filename='files/{}'.format(post.file)) }}" download="">Baixar Arquivo Excel</a>
                     {% elif 'exe' in post.file %}
                     <a href="{{ url_for('static', filename='files/{}'.format(post.file)) }}" download=>Baixar Execcutavel</a>
+                    {% elif 'jpeg' in post.file %}
+                    <img src="{{ url_for('static', filename='files/{}'.format(post.file)) }}" class="img-fluid" style="center">
                     {% else %}
-                        <video src="{{ url_for('static', filename='files/{}'.format(post.file)) }}" type="video/mp4" controls width="600" height="500"></video>
+                        <video src="{{ url_for('static', filename='files/{}'.format(post.file)) }}" type="video/mp4" controls class="img-fluid"></video>
                     {% endif %}
                 </div>
             </div>

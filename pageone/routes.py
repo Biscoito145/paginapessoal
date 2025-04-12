@@ -41,7 +41,7 @@ def login():
 
     if form_login.validate_on_submit() and 'botao_submit_login' in request.form:
         user = Usuario.query.filter_by(email=form_login.email.data).first()
-        if user and bcrypt.check_password_hash(user.senha.encode("utf-8"), form_login.senha.data):
+        if user and bcrypt.check_password_hash(str(user.senha), form_login.senha.data):
             login_user(user, remember=form_login.lembrar_dados.data)
             flash(f'Login feito com sucesso no email: {form_login.email.data}', 'alert-success')
             par_next = request.args.get('next')
