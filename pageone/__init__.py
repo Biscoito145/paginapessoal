@@ -30,3 +30,11 @@ migrate.init_app(app, database)
 lista_dev = ['Pernalonga', 'Pica-Pau', 'Patolino', 'Scooby-Doo', 'Salsicha']
 
 from pageone import routes
+
+with app.app_context():
+    from pageone.models import Usuario
+    senha_crip = bcrypt.generate_password_hash('senha_do_admin').decode('utf-8')
+    if not Usuario.query.filter_by(username='admin123').first():
+        usuario1 = Usuario(username='admin123', email='admin@email.com', senha=senha_crip)
+        database.session.add(usuario1)
+        database.session.commit()
