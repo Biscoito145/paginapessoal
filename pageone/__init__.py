@@ -32,6 +32,7 @@ lista_dev = ['Pernalonga', 'Pica-Pau', 'Patolino', 'Scooby-Doo', 'Salsicha']
 from pageone import routes
 
 with app.app_context():
+    database.create_all()
     from pageone.models import Usuario
     senha_crip = bcrypt.generate_password_hash('senha_do_admin').decode('utf-8')
     if not Usuario.query.filter_by(username='admin123').first():
