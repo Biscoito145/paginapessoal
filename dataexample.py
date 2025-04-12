@@ -2,7 +2,7 @@ from pageone.models import Usuario, Post
 from pageone import app, database
 from pageone import bcrypt
 with app.app_context():
-    # database.drop_all()
+    database.drop_all()
     database.create_all()
 
     senha_crip = bcrypt.generate_password_hash('201b94231cba640a1c21').decode('utf-8')
