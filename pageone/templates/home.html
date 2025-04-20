@@ -23,7 +23,8 @@
                     <small class="text-muted" style="font-size: 15px">Data de Criação: {{ post.data_criacao.strftime('%d/%m/%Y') }}</small>
 
                 </h3></a>
-                <p>{{post.corpo}}</p>
+        <p>{{ post.corpo.replace('\r\n', '\n').replace('\r', '\n').replace('\n\n', '</p><p>').replace('\n', '<br>') | safe }}</p>
+
             </div>
         </div>
         {% else %}
@@ -40,7 +41,7 @@
                         <small class="text-muted" style="font-size: 15px">Data de Criação: {{ post.data_criacao.strftime('%d/%m/%Y') }}</small>
 
                     </h3></a>
-                    <p>{{post.corpo}}</p>
+            <p>{{ post.corpo.replace('\r\n', '\n').replace('\r', '\n').replace('\n\n', '</p><p>').replace('\n', '<br>') | safe }}</p>
                     {% if 'pdf' in post.file %}
                         <embed src="{{ url_for('static', filename='files/{}'.format(post.file)) }}" width="100%" height="500" type="application/pdf">
                     {% elif 'jpg' in post.file or 'png' in post.file %}
