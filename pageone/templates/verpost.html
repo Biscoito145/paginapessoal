@@ -25,7 +25,9 @@
                 </h3>
 
 
-                <p>{{post.corpo}}</p>
+<div style="white-space: pre-wrap; margin-top: 0;">
+  {{ post.corpo.replace('\r\n', '\n').replace('\r', '\n').replace('\n', '<br>') | safe }}
+</div>
             </div>
         </div>
         {% else %}
@@ -49,8 +51,9 @@
                     </h3>
 
 
-                    <p>{{post.corpo}}</p>
-                    {% if 'pdf' in post.file %}
+<div style="white-space: pre-wrap; margin-top: 0;">
+  {{ post.corpo.replace('\r\n', '\n').replace('\r', '\n').replace('\n', '<br>') | safe }}
+</div>                    {% if 'pdf' in post.file %}
                         <embed src="{{ url_for('static', filename='files/{}'.format(post.file)) }}" width="100%" height="500" type="application/pdf">
                     {% elif 'jpg' in post.file or 'png' in post.file %}
                         <img src="{{ url_for('static', filename='files/{}'.format(post.file)) }}" style="center"  class="img-fluid">
