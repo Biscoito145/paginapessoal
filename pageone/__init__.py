@@ -9,7 +9,7 @@ import os
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = '23776f32948cb12d7cd472c5f9f52ba8'
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URLL") or 'sqlite:///comunidade.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URLLL") or 'sqlite:///comunidade.db'
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
